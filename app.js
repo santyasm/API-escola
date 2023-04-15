@@ -1,20 +1,23 @@
 import express from 'express';
-import homeRoute from './src/routes/homeRoute'  ;
+import homeRoute from './src/routes/homeRoute';
+import userRoute from './src/routes/userRoute';
+
 
 class App{
 	constructor() {
 		this.app = express();
-		this.middlewares();
-		this.routes();
+		this.configureMiddlewares();
+		this.configureRoutes();
 	}
 
-	middlewares() {
-		this.app.use(express.urlencoded({ extended: true }));
+	configureMiddlewares() {
+		this.app.use(express.urlencoded({extended: false}));
 		this.app.use(express.json());
 	}
 
-	routes() {
+	configureRoutes() {
 		this.app.use('/', homeRoute);
+		this.app.use('/', userRoute);
 	}
 }
 
