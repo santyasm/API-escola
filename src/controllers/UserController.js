@@ -15,9 +15,7 @@ export default class UserController {
 
 	static async update(req, res) {
 		try {
-			const { id } = req.params;
-
-			const user = await User.findByPk(id);
+			const user = await User.findByPk(req.userId);
 			if (!user) return res.status(404).json('Usuário não existe');
 
 			const userUpdated = await user.update(req.body);
@@ -32,9 +30,7 @@ export default class UserController {
 
 	static async delete(req, res) {
 		try {
-			const { id } = req.params;
-
-			const user = await User.findByPk(id);
+			const user = await User.findByPk(req.userId);
 			if(!user) return res.status(404).json('Usuário não existe');
 
 			await user.destroy();

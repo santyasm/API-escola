@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 
 export default class TokenController{
 	static async store(req, res) {
-		const { email, password } = req.body; 
+		const { email, password} = req.body; 
 		if (!email || !password) return res.status(400).json({ errors: ['Credenciais inválidas!'] });
         
-		const user = await User.findOne({ where: { email } });
+		const user = await User.findOne({ where: { email: email } });
 		if (!user) return res.status(404).json({errors: ['Usuário não existe']});
 
 		const compare = await user.passwordIsValid(password);
@@ -14,7 +14,7 @@ export default class TokenController{
 
 		const { id } = user;
 		const token = await jwt.sign(
-			{ userEmail: email, userId: id },
+			{ email, id },
 			process.env.SECRETKEY,
 			{ expiresIn: process.env.TOKEN_EXPIRATION }
 		);
