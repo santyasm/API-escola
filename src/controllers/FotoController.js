@@ -1,3 +1,4 @@
+import Foto from '../models/Foto';
 import multer from 'multer';
 import multerConfig from '../config/multer';
 const upload = multer(multerConfig).single('foto');
@@ -8,7 +9,9 @@ export default class FotoController{
 			if (error) return res.status(400).json({
 				errors: [error.code]
 			});
-			res.json(req.file);
+			const { filename, originalname } = req.file;
+			const newFoto = await Foto.create({filename, originalname});
+			res.json(newFoto);
 		});
 	}
 }
