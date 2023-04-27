@@ -7,7 +7,7 @@ export default class AlunoController {
 
 			return res.json(newAluno);
 		} catch (error) {
-			return res.status(400).json({errors: [error.message]});
+			return res.status(400).json({errors: error.errors.map(e => e.message)});
 		}
 	}
 
@@ -43,7 +43,7 @@ export default class AlunoController {
 
 			return res.json(alunoUpdated);
 		} catch (error) {
-			return res.status(400).json({ errors: [error.message] });
+			return res.status(400).json({ errors: error.errors.map(e => e.message)});
 		}
 
 	}
