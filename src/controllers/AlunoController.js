@@ -15,7 +15,11 @@ export default class AlunoController {
 	static async index(req, res) {
 		try {
 			const alunos = await Aluno.findAll({
-				order: [['id', 'desc']], include: {
+				order: [['id', 'desc']],
+				attributes: [
+					'id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'
+				],
+				include: {
 					model: Foto,
 					attributes: ['filename']
 				}
