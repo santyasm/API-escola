@@ -34,7 +34,21 @@ export default class AlunoController {
 	static async show(req, res) {
 		try {
 			const { id } = req.params;
-			const aluno = await Aluno.findByPk(id);
+			const aluno = await Aluno.findByPk(id, {
+				attributes: [
+					'id',
+					'nome',
+					'sobrenome',
+					'email',
+					'idade',
+					'peso',
+					'altura',
+				],
+				include: {
+					model: Foto,
+					attributes: ['filename']
+				}
+			});
 			if (!aluno) return res.status(401).json({ errors: ['Aluno não existe'] });
 			
 			return res.json(aluno);
