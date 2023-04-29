@@ -21,7 +21,7 @@ export default class AlunoController {
 				],
 				include: {
 					model: Foto,
-					attributes: ['filename']
+					attributes: ['filename', 'url']
 				}
 			});
 			
@@ -46,7 +46,7 @@ export default class AlunoController {
 				],
 				include: {
 					model: Foto,
-					attributes: ['filename']
+					attributes: ['filename', 'url']
 				}
 			});
 			if (!aluno) return res.status(401).json({ errors: ['Aluno não existe'] });
