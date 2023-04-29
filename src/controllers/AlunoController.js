@@ -1,4 +1,5 @@
 import Aluno from '../models/Aluno';
+import Foto from '../models/Foto';
 
 export default class AlunoController {
 	static async store(req, res) {
@@ -13,7 +14,12 @@ export default class AlunoController {
 
 	static async index(req, res) {
 		try {
-			const alunos = await Aluno.findAll({ order: [['id', 'desc']] });
+			const alunos = await Aluno.findAll({
+				order: [['id', 'desc']], include: {
+					model: Foto,
+					attributes: ['filename']
+				}
+			});
 			
 			return res.json(alunos);
 		} catch (error) {
